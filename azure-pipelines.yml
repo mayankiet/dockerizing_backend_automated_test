@@ -14,7 +14,7 @@ stages:
           token: $token
 
         steps:
-          - script: ./gradlew clean build runTests -Dtags=SMOKE -i
+          - script: ./gradlew clean build
           - script: ./gradlew publish
           - task: Docker@1         
             displayName: 'Build an image'
