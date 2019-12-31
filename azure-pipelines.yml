@@ -1,0 +1,37 @@
+trigger:
+  - master
+
+stages:
+  - stage: build
+    displayName: 'Build'
+    jobs:
+      - job: build
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        variables:
+          url: $url
+          token: $token
+
+        steps:
+          - script: ./gradlew clean build runTests -Dtags=SMOKE -i
+          - script: ./gradlew publish
+          - task: Docker@1         
+            displayName: 'Build an image'
+            inputs:
+              containerregistrytype: 'container Registry'
+              dockerRegistryEndpoint: restapisockerhub
+              imageName: '{your image name}'
+              command: build an image
+              dockerFile: '**/Dockerfile'
+          - task: Docker@1
+            displayName: Login
+            inputs:
+              containerregistrytype: 'container Registry'
+              dockerRegistryEndpoint: restapisockerhub
+              command: login
+          - task: Docker@1
+            displayName: 'Push an image'
+            inputs:
+              command: push an image
+              imageName: '{your image name}'
