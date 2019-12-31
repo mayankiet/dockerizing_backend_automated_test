@@ -21,7 +21,7 @@ stages:
             inputs:
               containerregistrytype: 'container Registry'
               dockerRegistryEndpoint: MyDockerHub
-              imageName: 'api automation'
+              imageName: 'api'
               command: build an image
               dockerFile: '**/Dockerfile'
           - task: Docker@1
@@ -34,4 +34,4 @@ stages:
             displayName: 'Push an image'
             inputs:
               command: push an image
-              imageName: 'api automation'
+              imageName: 'api'
