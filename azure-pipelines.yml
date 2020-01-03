@@ -14,8 +14,8 @@ stages:
           token: $token
 
         steps:
-          - script: ./gradlew clean build
-          - script: ./gradlew publish
+          - script: ./chmod +x gradlew clean build
+          - script: ./chmod +x gradlew publish
           - task: Docker@1         
             displayName: 'Build an image'
             inputs:
